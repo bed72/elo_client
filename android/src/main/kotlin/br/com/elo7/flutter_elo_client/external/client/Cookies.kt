@@ -4,20 +4,21 @@ import android.util.Log
 
 import io.ktor.http.Url
 import io.ktor.http.Cookie
+import io.ktor.http.CookieEncoding
 import io.ktor.client.plugins.cookies.CookiesStorage
 
-class Cookies : CookiesStorage {
-    private val container: MutableList<Cookie> = mutableListOf()
+class Cookies(private val cookiesStorage: CookiesStorage) : CookiesStorage by cookiesStorage {
 
-    override suspend fun get(requestUrl: Url): List<Cookie> {
-
-        Log.v("\n[GET COOKIES]: ", requestUrl.toString())
-
-        return container.filter { it.equals(requestUrl) }
-    }
+    override suspend fun get(requestUrl: Url): List<Cookie> =
+        cookiesStorage.get(requestUrl).map { cookie ->
+            Log.v("[GET COOKIES]:", cookie.toString())
+            cookie.copy(encoding = CookieEncoding.URI_ENCODING)
+        }
 
     override suspend fun addCookie(requestUrl: Url, cookie: Cookie) {
-        Log.v("\n[ADD COOKIES]: ", cookie.toString())
+        Log.v("[ADD COOKIES]:", cookie.toString())
+
+        cookiesStorage.addCookie(requestUrl, cookie)
     }
 
     override fun close() { }

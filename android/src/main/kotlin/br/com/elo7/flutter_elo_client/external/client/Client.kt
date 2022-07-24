@@ -1,5 +1,6 @@
 package br.com.elo7.flutter_elo_client.external.client
 
+import android.util.Log
 import io.ktor.http.contentType
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -21,6 +22,7 @@ import br.com.elo7.flutter_elo_client.external.client.plugins.installResponseTim
 import br.com.elo7.flutter_elo_client.external.client.plugins.installResponseObserver
 import br.com.elo7.flutter_elo_client.external.client.plugins.installContentNegotiation
 import io.ktor.http.cookies
+import io.ktor.http.setCookie
 
 object Client {
     private val instance = HttpClient(OkHttp) {
@@ -34,7 +36,6 @@ object Client {
 
     suspend fun makeRequest(params: Params): List<String> {
         val response: HttpResponse = instance.request(params.path) {
-            cookies()
             setBody(params.body)
             headers { params.headers }
             method = httpMapper(params.method)

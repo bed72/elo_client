@@ -19,13 +19,14 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.cookies.HttpCookies
 import io.ktor.client.plugins.observer.ResponseObserver
+import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 
 private const val TIMEOUT_MILLIS = 15000L
 
 fun HttpClientConfig<OkHttpConfig>.installCookies() {
     install(HttpCookies) {
-        storage = Cookies() // AcceptAllCookiesStorage()
+        storage = Cookies(AcceptAllCookiesStorage()) //AcceptAllCookiesStorage()
     }
 }
 
@@ -64,6 +65,7 @@ fun HttpClientConfig<OkHttpConfig>.installResponseTimeout() {
 
 fun HttpClientConfig<OkHttpConfig>.installContentNegotiation() {
     install(ContentNegotiation) {
+
         engine {
             config {
                 followRedirects(true)
@@ -72,7 +74,7 @@ fun HttpClientConfig<OkHttpConfig>.installContentNegotiation() {
             /*
             * Interceptors
             */
-            //addInterceptor(AuthorizationInterceptor())
+            // addInterceptor(Http)
         }
     }
 }
