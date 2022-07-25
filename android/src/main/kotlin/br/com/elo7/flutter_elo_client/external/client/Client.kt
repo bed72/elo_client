@@ -1,6 +1,9 @@
 package br.com.elo7.flutter_elo_client.external.client
 
 import android.util.Log
+
+import io.ktor.http.cookies
+import io.ktor.http.setCookie
 import io.ktor.http.contentType
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -21,8 +24,6 @@ import br.com.elo7.flutter_elo_client.external.client.plugins.installRequestDefa
 import br.com.elo7.flutter_elo_client.external.client.plugins.installResponseTimeout
 import br.com.elo7.flutter_elo_client.external.client.plugins.installResponseObserver
 import br.com.elo7.flutter_elo_client.external.client.plugins.installContentNegotiation
-import io.ktor.http.cookies
-import io.ktor.http.setCookie
 
 object Client {
     private val instance = HttpClient(OkHttp) {

@@ -1,7 +1,6 @@
 package br.com.elo7.flutter_elo_client.external.client.plugins
 
 import android.util.Log
-import br.com.elo7.flutter_elo_client.external.client.Cookies
 
 import io.ktor.http.HttpHeaders
 import io.ktor.http.ContentType
@@ -22,11 +21,13 @@ import io.ktor.client.plugins.observer.ResponseObserver
 import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 
+import br.com.elo7.flutter_elo_client.external.client.Cookies
+
 private const val TIMEOUT_MILLIS = 15000L
 
 fun HttpClientConfig<OkHttpConfig>.installCookies() {
     install(HttpCookies) {
-        storage = Cookies(AcceptAllCookiesStorage()) //AcceptAllCookiesStorage()
+        storage = Cookies(AcceptAllCookiesStorage())
     }
 }
 
@@ -74,7 +75,6 @@ fun HttpClientConfig<OkHttpConfig>.installContentNegotiation() {
             /*
             * Interceptors
             */
-            // addInterceptor(Http)
         }
     }
 }

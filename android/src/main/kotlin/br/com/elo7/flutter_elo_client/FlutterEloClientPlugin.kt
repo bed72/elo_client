@@ -23,8 +23,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 const val CHANNEL_NAME = "br.com.elo7.flutter_elo_client"
 
 class FlutterEloClientPlugin : FlutterPlugin, MethodCallHandler {
-    private val request = "request"
-
     private lateinit var context: Context
     private lateinit var channel: MethodChannel
 
@@ -42,7 +40,7 @@ class FlutterEloClientPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
-            request -> mainScope.launch {
+            "request" -> mainScope.launch {
                 withContext(Dispatchers.Default) {
                     makeRequest(call, result)
                 }
