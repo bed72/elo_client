@@ -6,8 +6,8 @@ public class SwiftFlutterEloClientPlugin: NSObject, FlutterPlugin {
   private let service: HttpService
 
   init(service: HttpService = HttpServiceImpl()) {
-        self.service = service
-    }
+    self.service = service
+  }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "flutter_elo_client", binaryMessenger: registrar.messenger())
@@ -25,9 +25,12 @@ public class SwiftFlutterEloClientPlugin: NSObject, FlutterPlugin {
     }
   }
 
-   private func makeRequest(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-      
-    var param = Params.init(
+   private func makeRequest(
+    _ call: FlutterMethodCall, 
+    result: @escaping FlutterResult,
+    response: @escaping(Result<PokemonsResponse, ServiceError>) -> Void
+  ) {
+    var params = Params.init(
       path: call.arguments["path"] as! String,
       body: call.arguments["body"] as! [String: Any],
       headers: call.arguments["headers"] as! [String: Any],
@@ -35,12 +38,10 @@ public class SwiftFlutterEloClientPlugin: NSObject, FlutterPlugin {
       queryParams: call.arguments["queryParams"] as! [String: Any] 
     )
 
-    service.makeRequest(endpoint: "", parameters: nil) { response in
+    service.makeRequest(endpoint: params.path, parameters: nil) { response in
       DispatchQueue.main.async {
-        result(response)
+        result(response(response))
       }
     }
-
-    // result()
   }
 }

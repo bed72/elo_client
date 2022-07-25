@@ -11,7 +11,7 @@ struct Params {
     var body: [String: Any]? = nil
     var headers: [String: Any]? = nil
     var method: String = Methods.GET
-    var : [String: Any]? = nil
+    var queryParams: [String: Any]? = nil
 
     init(
         path: String, 

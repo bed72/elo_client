@@ -28,9 +28,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    // https://pokeapi.co/api/v2/pokemon/lucario
     makeRequest(
-      const ClientModel(path: 'https://elo7.com.br/'),
+      const ClientModel(path: 'https://pokeapi.co/api/v2/pokemon/lucario'),
     );
   }
 
@@ -46,10 +45,10 @@ class _MyAppState extends State<MyApp> {
 
     if (!mounted) return;
 
-    // final lucario = jsonDecode(response) as Map<String, dynamic>;
+    final lucario = jsonDecode(response) as Map<String, dynamic>;
 
     setState(() {
-      _response = response.trim(); //lucario['name'];
+      _response = lucario['name'];
     });
   }
 
@@ -62,12 +61,6 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Text(_response),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => makeRequest(
-            const ClientModel(path: 'https://elo7.com.br/categoria'),
-          ),
-          child: const Icon(Icons.cable),
         ),
       ),
     );
