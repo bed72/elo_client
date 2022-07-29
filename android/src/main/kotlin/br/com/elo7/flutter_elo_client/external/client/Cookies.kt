@@ -12,7 +12,7 @@ class Cookies(private val cookiesStorage: CookiesStorage) : CookiesStorage by co
     override suspend fun get(requestUrl: Url): List<Cookie> =
         cookiesStorage.get(requestUrl).map { cookie ->
             Log.v("[GET COOKIES]:", cookie.toString())
-            cookie.copy(encoding = CookieEncoding.URI_ENCODING)
+            cookie.copy(encoding = CookieEncoding.RAW)
         }
 
     override suspend fun addCookie(requestUrl: Url, cookie: Cookie) {

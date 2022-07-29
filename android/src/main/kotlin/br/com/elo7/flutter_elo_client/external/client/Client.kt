@@ -1,9 +1,5 @@
 package br.com.elo7.flutter_elo_client.external.client
 
-import android.util.Log
-
-import io.ktor.http.cookies
-import io.ktor.http.setCookie
 import io.ktor.http.contentType
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
